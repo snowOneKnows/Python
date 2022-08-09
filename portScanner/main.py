@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 # Port scanning in python using builtins 
 # Imports 
-
 import socket
+
 # Class 
+
 class Scanner:
     def __init__(self, ip):
         self.ip = ip
@@ -20,6 +21,7 @@ class Scanner:
 
     def scan(self, lowerport, upperport):
         for port in range(lowerport, upperport + 1):
+            # adds 1 to end of range due to range always dropping on the right value
             if self.is_open(port):
                 self.add_port(port)
 
@@ -33,9 +35,17 @@ class Scanner:
         return result == 0
 
     def write(self, filepath):
+        """" Writes to file saving ports as new line. """
         openport = map(str, self.open_ports)
         with open(filepath, 'w') as f:
             f.write('\n'.join(openport))
+
+# Program starts here. 
+# changes and scopes
+# ------------------
+# 1. Add IP, range to args list instead of hard coding as nothing should be hard coded 
+# 2. include banner reading 
+# 3. Add optional flag for saving to file and adding filename or just print to screen.
 
 def main():
     ip = '192.168.50.1'
